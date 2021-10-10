@@ -2,6 +2,7 @@
    <div class="container">
       <h1>Welcome to our site</h1>
       <form class="form">
+         <input v-model="username" type="username" placeholder="Username" />
          <input v-model="email" type="email" placeholder="Email" />
          <input v-model="password" type="password" placeholder="Password" />
          <button type="submit" @click.prevent="register" class="btn-primary">
@@ -21,6 +22,7 @@ export default {
    name: 'Home',
    data() {
       return {
+         username: '',
          email: '',
          password: '',
       };
@@ -28,9 +30,12 @@ export default {
    methods: {
       async register() {
          try {
-            await firebase
+            const res = await firebase
                .auth()
                .createUserWithEmailAndPassword(this.email, this.password);
+            await res.user.updateProfile({
+               displayName: this.username,
+            });
             console.log('User kreiran');
          } catch (error) {
             console.error(error);

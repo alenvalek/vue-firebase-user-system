@@ -12,7 +12,7 @@ const routes = [
       beforeEnter: (to, from, next) => {
          const auth = store.getters['getUser'];
          if (to.name === 'Home' && !auth) {
-            next({ name: from.name });
+            next({ name: 'Login' });
          } else {
             next();
          }

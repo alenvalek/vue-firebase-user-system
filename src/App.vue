@@ -17,6 +17,7 @@ firebase.auth().onAuthStateChanged((user) => {
    if (user) {
       const userObj = {
          email: user.email,
+         username: user.displayName,
          uid: user.uid,
       };
       store.commit('user', userObj);
